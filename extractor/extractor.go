@@ -79,7 +79,7 @@ func (e *Extractor) Process(job J.Job) {
 		return
 	}
 
-	doc, err := rewriteAndDownloadImages(job.Root(), resp.Content)
+	doc, err := RewriteAndDownloadImages(job.Root(), resp.Content)
 	if err != nil {
 		e.error(job, "HTML parsing failed: %s", err)
 		return
@@ -117,7 +117,7 @@ func attrIndex(node *html.Node, key string) int {
 	return -1
 }
 
-func rewriteAndDownloadImages(root string, content string) (*html.Node, error) {
+func RewriteAndDownloadImages(root string, content string) (*html.Node, error) {
 	var wg sync.WaitGroup
 	imageDownloader := newDownloader(root, timeout)
 	doc, err := boots.Walk(strings.NewReader(content), "img", func(node *html.Node) {
