@@ -27,7 +27,7 @@ type JSON map[string]interface{}
 
 var (
 	timeout = 5 * time.Second
-	token   = env.String("MERCURY_TOKEN")
+	token   = os.Getenv("MERCURY_TOKEN")
 	logger  = log.New(os.Stdout, "[extractor] ", env.IntDefault("LOG_FLAGS", log.LstdFlags|log.Lmicroseconds))
 	merc    = mercury.New(token, logger)
 )
